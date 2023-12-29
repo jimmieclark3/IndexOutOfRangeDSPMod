@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using static Localization;
 
 namespace DSPTransportStat.Translation
 {
@@ -26,7 +27,7 @@ namespace DSPTransportStat.Translation
 
         private bool plural;
 
-        static public GameObject Create ()
+        static public GameObject Create()
         {
             GameObject instance = new GameObject("station-count-in-list", typeof(RectTransform), typeof(UIStationCountInListTranslation));
 
@@ -57,15 +58,15 @@ namespace DSPTransportStat.Translation
             return instance;
         }
 
-        public void SetNumber (int number)
+        public void SetNumber(int number)
         {
             Number.text = $"{number}";
             plural = number > 1;
 
-            Reposition(Strings.Language);
+            Reposition();
         }
 
-        private void Init (RectTransform textBeforeNumberPosition, Text textBeforeNumber, RectTransform textAfterNumberPosition, Text textAfterNumber, RectTransform numberPosition, Text number)
+        private void Init(RectTransform textBeforeNumberPosition, Text textBeforeNumber, RectTransform textAfterNumberPosition, Text textAfterNumber, RectTransform numberPosition, Text number)
         {
             TextBeforeNumberPosition = textBeforeNumberPosition;
             TextBeforeNumber = textBeforeNumber;
@@ -93,73 +94,69 @@ namespace DSPTransportStat.Translation
             Number.text = "";
 
             plural = false;
-
-            SetLanguage(Strings.Language);
         }
 
-        private void SetLanguage (Language lang)
+        private void SetLanguage()
         {
-            switch (lang)
+            if (Localization.isZHCN)
             {
-                case Language.zhCN:
-                    TextBeforeNumber.text = "当前列表中有 ";
-                    TextAfterNumber.text = " 个站点";
-                    break;
-                case Language.enUS:
-                default:
-                    TextBeforeNumber.text = "";
-                    if (plural)
-                    {
-                        TextAfterNumber.text = " stations in list";
-                    }
-                    else
-                    {
-                        TextAfterNumber.text = " station in list";
-                    }
-                    break;
+                TextBeforeNumber.text = "当前列表中有 ";
+                TextAfterNumber.text = " 个站点";
+            }
+            else if (Localization.isENUS)
+            {
+                TextBeforeNumber.text = "";
+                if (plural)
+                {
+                    TextAfterNumber.text = " stations in list";
+                }
+                else
+                {
+                    TextAfterNumber.text = " station in list";
+                }
+
             }
         }
 
-        private void Reposition (Language lang)
+        private void Reposition()
         {
-            switch (lang)
+            if (Localization.isZHCN)
             {
-                case Language.zhCN:
-                    TextBeforeNumberPosition.Zeroize();
-                    TextBeforeNumberPosition.anchorMax = new Vector2(0, 1);
-                    TextBeforeNumberPosition.offsetMax = new Vector2(100, 0);
+                TextBeforeNumberPosition.Zeroize();
+                TextBeforeNumberPosition.anchorMax = new Vector2(0, 1);
+                TextBeforeNumberPosition.offsetMax = new Vector2(100, 0);
 
-                    NumberPosition.Zeroize();
-                    NumberPosition.anchorMax = new Vector2(0, 1);
-                    NumberPosition.offsetMin = new Vector2(100, 0);
-                    NumberPosition.offsetMax = new Vector2(100 + Number.preferredWidth, 0);
+                NumberPosition.Zeroize();
+                NumberPosition.anchorMax = new Vector2(0, 1);
+                NumberPosition.offsetMin = new Vector2(100, 0);
+                NumberPosition.offsetMax = new Vector2(100 + Number.preferredWidth, 0);
 
-                    TextAfterNumberPosition.Zeroize();
-                    TextAfterNumberPosition.anchorMax = new Vector2(0, 1);
-                    TextAfterNumberPosition.offsetMin = new Vector2(100 + Number.preferredWidth, 0);
-                    TextAfterNumberPosition.offsetMax = new Vector2(100 + Number.preferredWidth + 50, 0);
-                    break;
-                case Language.enUS:
-                default:
-                    TextBeforeNumberPosition.Zeroize();
+                TextAfterNumberPosition.Zeroize();
+                TextAfterNumberPosition.anchorMax = new Vector2(0, 1);
+                TextAfterNumberPosition.offsetMin = new Vector2(100 + Number.preferredWidth, 0);
+                TextAfterNumberPosition.offsetMax = new Vector2(100 + Number.preferredWidth + 50, 0);
 
-                    NumberPosition.Zeroize();
-                    NumberPosition.anchorMax = new Vector2(0, 1);
-                    NumberPosition.offsetMax = new Vector2(Number.preferredWidth, 0);
+            }
+            else if (Localization.isENUS)
+            {
+                TextBeforeNumberPosition.Zeroize();
 
-                    TextAfterNumberPosition.Zeroize();
-                    TextAfterNumberPosition.anchorMax = new Vector2(0, 1);
-                    TextAfterNumberPosition.offsetMin = new Vector2(Number.preferredWidth, 0);
-                    TextAfterNumberPosition.offsetMax = new Vector2(Number.preferredWidth + 50, 0);
-                    if (plural)
-                    {
-                        TextAfterNumber.text = " stations in list";
-                    }
-                    else
-                    {
-                        TextAfterNumber.text = " station in list";
-                    }
-                    break;
+                NumberPosition.Zeroize();
+                NumberPosition.anchorMax = new Vector2(0, 1);
+                NumberPosition.offsetMax = new Vector2(Number.preferredWidth, 0);
+
+                TextAfterNumberPosition.Zeroize();
+                TextAfterNumberPosition.anchorMax = new Vector2(0, 1);
+                TextAfterNumberPosition.offsetMin = new Vector2(Number.preferredWidth, 0);
+                TextAfterNumberPosition.offsetMax = new Vector2(Number.preferredWidth + 50, 0);
+                if (plural)
+                {
+                    TextAfterNumber.text = " stations in list";
+                }
+                else
+                {
+                    TextAfterNumber.text = " station in list";
+                }
             }
         }
     }

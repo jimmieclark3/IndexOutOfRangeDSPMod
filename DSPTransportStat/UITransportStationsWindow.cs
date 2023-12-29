@@ -15,12 +15,12 @@ using UnityEngine.Events;
 
 namespace DSPTransportStat
 {
-    class UITransportStationsWindow : ManualBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler
+    public class UITransportStationsWindow : ManualBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler
     {
         /// <summary>
         /// 是否已经创建过窗口，防止重复创建窗口
         /// </summary>
-        static private bool isCreated = false;
+        static internal bool isCreated = false;
 
         /// <summary>
         /// 鼠标指针是否在窗口内
@@ -30,42 +30,42 @@ namespace DSPTransportStat
         /// <summary>
         /// 参数面板组件，方便在查询参数发生变化时获取新的查询参数
         /// </summary>
-        private UITransportStationsWindowParameterPanel uiTSWParameterPanel = null;
+        internal UITransportStationsWindowParameterPanel uiTSWParameterPanel = null;
 
         /// <summary>
         /// 预先创建好的列表项
         /// </summary>
-        private UITransportStationsEntry[] uiTransportStationsEntries;
+        internal UITransportStationsEntry[] uiTransportStationsEntries;
 
         /// <summary>
         /// 具有翻译功能的用于显示当前列表中站点数量的组件
         /// </summary>
-        private UIStationCountInListTranslation uiStationCountInListTranslation = null;
+        internal UIStationCountInListTranslation uiStationCountInListTranslation = null;
 
         /// <summary>
         /// 物流运输站列表，包含 StationInfo 、 StarData 和 PlanetData
         /// </summary>
-        private readonly List<StationInfoBundle> stations = new List<StationInfoBundle>();
+        internal readonly List<StationInfoBundle> stations = new List<StationInfoBundle>();
 
         /// <summary>
         /// 排序参数 - 位置和名称
         /// </summary>
-        private SortOrder locationAndNameSortOrder = SortOrder.NONE;
+        internal SortOrder locationAndNameSortOrder = SortOrder.NONE;
 
         /// <summary>
         /// 查询参数 - 搜索字符串
         /// </summary>
-        private string searchString = "";
+        internal string searchString = "";
 
         /// <summary>
         /// content RectTransform 的引用，便于修改内容尺寸
         /// </summary>
-        private RectTransform contentRectTransform;
+        internal RectTransform contentRectTransform;
 
         /// <summary>
         /// viewport RectTransform 的引用，便于修改视口的尺寸
         /// </summary>
-        private RectTransform viewportRectTransform;
+        internal RectTransform viewportRectTransform;
 
         /// <summary>
         /// 创建物流运输站窗口
@@ -428,7 +428,7 @@ namespace DSPTransportStat
         /// </summary>
         /// <param name="goTSW"></param>
         /// <returns></returns>
-        static private UITransportStationsWindow Create_InitWindow (GameObject goTSW)
+        static internal UITransportStationsWindow Create_InitWindow (GameObject goTSW)
         {
             UITransportStationsWindow uiTSW = goTSW.AddComponent<UITransportStationsWindow>();
             uiTSW._Create(); // ManualBehaviour._Create()
@@ -456,7 +456,7 @@ namespace DSPTransportStat
         /// <param name="baseGameObject"></param>
         /// <param name="onParameterCallback"></param>
         /// <returns></returns>
-        static private UITransportStationsWindowParameterPanel Create_InitParameterPanel (GameObject baseGameObject, Action onParameterChangeCallback)
+        static internal UITransportStationsWindowParameterPanel Create_InitParameterPanel (GameObject baseGameObject, Action onParameterChangeCallback)
         {
             baseGameObject.name = "parameter-panel";
             return UITransportStationsWindowParameterPanel.Create(baseGameObject, onParameterChangeCallback);
@@ -467,7 +467,7 @@ namespace DSPTransportStat
         /// </summary>
         /// <param name="baseGameObject"></param>
         /// <returns></returns>
-        static private UITransportStationsEntry[] Create_InitTable (GameObject baseGameObject)
+        static internal UITransportStationsEntry[] Create_InitTable (GameObject baseGameObject)
         {
             baseGameObject.name = "transport-stations-bg";
             baseGameObject.SetActive(true);
@@ -658,7 +658,7 @@ namespace DSPTransportStat
         /// 
         /// 虚拟滚动
         /// </summary>
-        private void ComputeTransportStationsWindow_VirtualScroll ()
+        internal void ComputeTransportStationsWindow_VirtualScroll ()
         {
             // 内容高度
             float contentHeight = contentRectTransform.rect.height;
@@ -786,7 +786,7 @@ namespace DSPTransportStat
             ComputeTransportStationsWindow_LoadStations();
         }
 
-        private void Update ()
+        internal void Update ()
         {
             ComputeTransportStationsWindow_VirtualScroll();
         }
@@ -801,12 +801,12 @@ namespace DSPTransportStat
             IsPointerInside = false;
         }
 
-        protected override bool _OnInit ()
+        public override bool _OnInit ()
         {
             return true;
         }
 
-        protected override void _OnClose ()
+        public override void _OnClose ()
         {
             IsPointerInside = false;
             base._OnClose();

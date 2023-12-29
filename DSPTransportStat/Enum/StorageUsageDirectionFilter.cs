@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSPTransportStat.Enum
 {
-    enum StorageUsageDirectionFilter
+    public enum StorageUsageDirectionFilter
     {
         All,
         Supply,

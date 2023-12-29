@@ -15,7 +15,8 @@ namespace DSPTransportStat.Extensions
         /// <returns></returns>
         static public string GetStationName (this StationComponent stationComponent)
         {
-            if (string.IsNullOrEmpty(stationComponent.name))
+            var name = stationComponent.GetStationName();
+            if (string.IsNullOrEmpty(name))
             {
                 if (stationComponent.isStellar)
                 {
@@ -28,7 +29,7 @@ namespace DSPTransportStat.Extensions
             }
             else
             {
-                return stationComponent.name;
+                return name;
             }
         }
     }

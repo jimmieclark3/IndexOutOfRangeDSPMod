@@ -89,7 +89,7 @@ namespace DSPTransportStat
             {
                 if (StationComponent.isStellar)
                 {
-                    StationType.text = Strings.Common.StationType.Interstrllar;
+                    StationType.text = Strings.Common.StationType.Interstellar;
                 }
                 else
                 {
@@ -98,8 +98,8 @@ namespace DSPTransportStat
             }
 
             // StationComponent 的 name 字段不一定有值，没有值的情况下使用 gid 和 id 拼凑名称
-            //Name.text = StationComponent.name;
-            if (string.IsNullOrEmpty(StationComponent.name))
+            var name = StationComponent.GetStationName();
+            if (string.IsNullOrEmpty(name))
             {
                 if (StationComponent.isStellar)
                 {
@@ -112,7 +112,7 @@ namespace DSPTransportStat
             }
             else
             {
-                Name.text = StationComponent.name;
+                Name.text = name;
             }
 
             for (int i = 0; i < Constants.TRANSPORT_STATIONS_ENTRY_DEFAULT_ITEM_SLOT_NUMBER; ++i)

@@ -28,13 +28,13 @@ namespace DSPTransportStat
         /// </summary>
         new public ManualLogSource Logger { get => base.Logger; }
 
-        private KeyboardShortcut transportStationsWindowShortcut;
+        internal KeyboardShortcut transportStationsWindowShortcut;
 
-        private UITransportStationsWindow uiTransportStationsWindow;
+        internal UITransportStationsWindow uiTransportStationsWindow;
 
-        private bool isAllowItemTransfer = false;
+        internal bool isAllowItemTransfer = false;
 
-        private void Awake ()
+        internal void Awake ()
         {
             Instance = this;
 
@@ -50,7 +50,7 @@ namespace DSPTransportStat
             harmony.PatchAll(typeof(Patch_UIStationStorage));
         }
 
-        private void Update ()
+        internal void Update ()
         {
             if (!GameMain.isRunning || GameMain.isPaused || GameMain.instance.isMenuDemo || VFInput.inputing)
             {
@@ -68,7 +68,7 @@ namespace DSPTransportStat
             }
         }
 
-        private void ToggleTransportStationsWindow ()
+        internal void ToggleTransportStationsWindow ()
         {
             if (uiTransportStationsWindow.active)
             {
@@ -85,7 +85,7 @@ namespace DSPTransportStat
         /// <summary>
         /// 读取配置文件，如果配置文件不存在的话，会创建配置文件
         /// </summary>
-        private void TryReadConfig ()
+        internal void TryReadConfig ()
         {
             // 尝试读取配置文件
             string modDataDir = GameConfig.gameSaveFolder + "modData/IndexOutOfRange.DSPTransportStat/";
@@ -116,7 +116,7 @@ namespace DSPTransportStat
         /// <summary>
         /// 保存配置文件
         /// </summary>
-        private void SaveConfig ()
+        internal void SaveConfig ()
         {
             Logger.LogInfo($"SaveConfig: {isAllowItemTransfer}");
             string configFilePath = GameConfig.gameSaveFolder + "modData/IndexOutOfRange.DSPTransportStat/config.txt";
@@ -145,12 +145,12 @@ namespace DSPTransportStat
         /// </summary>
         class Patch_UIGame
         {
-            static private bool isCreated = false;
+            static internal bool isCreated = false;
 
-            static private bool isInit = false;
+            static internal bool isInit = false;
 
             [HarmonyPostfix, HarmonyPatch(typeof(UIGame), "_OnCreate")]
-            static private void UIGame__OnCreate_Postfix ()
+            static internal void UIGame__OnCreate_Postfix ()
             {
                 if (!isCreated)
                 {
@@ -161,7 +161,6 @@ namespace DSPTransportStat
                     {
                         Instance.Logger.LogError(missingInfo);
                     }
-                    Strings.InitializeTranslations(DSPGame.globalOption.language);
                     ReassembledObjectCache.InitializeReassembledObjectCache();
                     NewObjectCache.InitializeNewObjectCache();
                     Instance.uiTransportStationsWindow = UITransportStationsWindow.Create(Instance.isAllowItemTransfer, value => Instance.isAllowItemTransfer = value);
@@ -186,7 +185,7 @@ namespace DSPTransportStat
             }
 
             [HarmonyPostfix, HarmonyPatch(typeof(UIGame), "_OnInit")]
-            static private void UIGame__OnInit_Postfix (UIGame __instance)
+            static internal void UIGame__OnInit_Postfix (UIGame __instance)
             {
                 if (!isInit)
                 {
@@ -217,7 +216,7 @@ namespace DSPTransportStat
         class Patch_VFInput
         {
             [HarmonyPostfix, HarmonyPatch(typeof(VFInput), "_cameraZoomIn", MethodType.Getter)]
-            static private void VFInput__cameraZoomIn_Postfix (ref float __result)
+            static internal void VFInput__cameraZoomIn_Postfix (ref float __result)
             {
                 if (Instance.uiTransportStationsWindow != null && Instance.uiTransportStationsWindow.IsPointerInside)
                 {
@@ -226,7 +225,7 @@ namespace DSPTransportStat
             }
 
             [HarmonyPostfix, HarmonyPatch(typeof(VFInput), "_cameraZoomOut", MethodType.Getter)]
-            static private void VFInput__cameraZoomOut_Postfix (ref float __result)
+            static internal void VFInput__cameraZoomOut_Postfix (ref float __result)
             {
                 if (Instance.uiTransportStationsWindow != null && Instance.uiTransportStationsWindow.IsPointerInside)
                 {
@@ -245,7 +244,7 @@ namespace DSPTransportStat
                 get => currentStationWindow != null;
             }
 
-            static private UIStationWindow currentStationWindow = null;
+            static internal UIStationWindow currentStationWindow = null;
 
             /// <summary>
             /// 打开任意一个物流运输站的站点窗口
@@ -345,7 +344,7 @@ namespace DSPTransportStat
                 return false;
             }
 
-            static private void OnPlayerIntendToTransferItems (int _itemId, int _itemCount, int _itemInc)
+            static internal void OnPlayerIntendToTransferItems (int _itemId, int _itemCount, int _itemInc)
             {
                 // 避免抛出异常
                 if (currentStationWindow == null)

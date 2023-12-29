@@ -8,494 +8,118 @@ namespace DSPTransportStat.Translation
 {
     static class Strings
     {
-        static public Language Language { get => language; }
+        private static readonly Dictionary<string, string> _translations = new Dictionary<string, string>
+            {
+                { "Transport Stations", "物流运输站" },
+                { "Current:", "当前：" },
+                { "Max:", "最大：" },
+                { "Location & Name", "位置和名称" },
+                { "ASC", "升序" },
+                { "DESC", "降序" },
+                { "Item Slots", "物品槽位" },
+                { "Search:", "搜索：" },
+                { "Search", "搜索" },
+                { "Config Panel", "配置面板" },
+                { "Home Panel", "主页" },
+                { "Allow Item Transfer", "允许存取物品" },
+                { "Planetary Station", "行星物流站" },
+                { "Interstellar Station", "星际物流站" },
+                { "Collector", "采集站" },
+                { "Item Filter", "过滤物品" },
+                { "Local/Remote", "行星/星际" },
+                { "All", "全部" },
+                { "Local", "行星" },
+                { "Remote", "星际" },
+                { "Supply/Demand", "需求/供应" },
+                { "No Order", "无订单" },
+                { "Planetary Collector", "行星采集站" },
+                { "Orbital Collector", "轨道采集站" },
+                { "Local Storage", "本地仓储" },
+                { "Local Supply", "本地供应" },
+                { "Local Demand", "本地需求" },
+                { "Remote Storage", "星际仓储" },
+                { "Remote Supply", "星际供应" },
+                { "Remote Demand", "星际需求" },
+                // ... add other translations
+            };
 
-        static private Language language = Language.enUS;
-
-        static public void InitializeTranslations (Language lang)
+        public static string Translate(this string text)
         {
-            language = lang;
+            if (_translations.TryGetValue(text, out var translation))
+            {
+                return translation;
+            }
+
+            return text; // or some default action
         }
+
 
         static public class TransportStationsWindow
         {
-            static public string Title
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Transport Stations";
-                        case Language.zhCN: return "物流运输站";
-                        default: return "Transport Stations";
-                    };
-                }
-            }
+            static public string Title => "Transport Stations".Translate();
 
-            static public string CurrentLabel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Current:";
-                        case Language.zhCN: return "当前：";
-                        default: return "Current:";
-                    }
-                }
-            }
+            static public string CurrentLabel => "Current:".Translate();
+            static public string MaxLabel => "Max:".Translate();
+            static public string LocationAndName => "Location & Name".Translate();
+            static public string ASC => "ASC".Translate();
+            static public string DESC => "DESC".Translate();
+            static public string ItemSlots => "Item Slots".Translate();
+            static public string SearchLabel => "Search:".Translate();
+            static public string SearchButton => "Search".Translate();
+            static public string ItemConfigPanel => "Config Panel".Translate();
+            static public string ItemHomePanel => "Home Panel".Translate();
+            static public string AllowItemTransferLabel => "Allow Item Transfer".Translate();
 
-            static public string MaxLabel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Max:";
-                        case Language.zhCN: return "最大：";
-                        default: return "Max:";
-                    }
-                }
-            }
-
-            static public string LocationAndName
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Location & Name";
-                        case Language.zhCN: return "位置和名称";
-                        default: return "Location & Name";
-                    }
-                }
-            }
-
-            static public string ASC
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "ASC";
-                        case Language.zhCN: return "升序";
-                        default: return "ASC";
-                    }
-                }
-            }
-
-            static public string DESC
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "DESC";
-                        case Language.zhCN: return "降序";
-                        default: return "DESC";
-                    }
-                }
-            }
-
-            static public string ItemSlots
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Item Slots";
-                        case Language.zhCN: return "物品槽位";
-                        default: return "Item Slots";
-                    }
-                }
-            }
-
-            static public string SearchLabel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Search:";
-                        case Language.zhCN: return "搜索：";
-                        default: return "Search:";
-                    }
-                }
-            }
-
-            static public string SearchButton
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Search";
-                        case Language.zhCN: return "搜索";
-                        default: return "Search";
-                    }
-                }
-            }
-
-            static public string ItemConfigPanel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Config Panel";
-                        case Language.zhCN: return "配置面板";
-                        default: return "Config Panel";
-                    }
-                }
-            }
-
-            static public string ItemHomePanel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Home Panel";
-                        case Language.zhCN: return "主页";
-                        default: return "Home Panel";
-                    }
-                }
-            }
-
-            static public string AllowItemTransferLabel
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "Allow Item Transfer";
-                        case Language.zhCN: return "允许存取物品";
-                        default: return "Allow Item Transfer";
-                    }
-                }
-            }
 
             static public class ParameterPanel
             {
-                static public string ToggleInPlanetLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Planetary Station";
-                            case Language.zhCN: return "行星物流站";
-                            default: return "Planetary Station";
-                        }
-                    }
-                }
-
-                static public string ToggleInterstellarLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Interstellar Station";
-                            case Language.zhCN: return "星际物流站";
-                            default: return "Interstellar Station";
-                        }
-                    }
-                }
-
-                static public string ToggleCollectorLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Collector";
-                            case Language.zhCN: return "采集站";
-                            default: return "Collector";
-                        }
-                    }
-                }
-
-                static public string ItemFilterLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Item Filter";
-                            case Language.zhCN: return "过滤物品";
-                            default: return "Item Filter";
-                        }
-                    }
-                }
-
-                static public string UsageTypeFilterLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Local/Remote";
-                            case Language.zhCN: return "行星/星际";
-                            default: return "Local/Remote";
-                        }
-                    }
-                }
-
-                static public string UsageTypeFilterToggleAllLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "All";
-                            case Language.zhCN: return "全部";
-                            default: return "All";
-                        }
-                    }
-                }
-
-                static public string UsageTypeFilterToggleLocalLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Local";
-                            case Language.zhCN: return "行星";
-                            default: return "Local";
-                        }
-                    }
-                }
-
-                static public string UsageTypeFilterToggleRemoteLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Remote";
-                            case Language.zhCN: return "星际";
-                            default: return "Remote";
-                        }
-                    }
-                }
-
-                static public string UsageDirectionFilterLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Supply/Demand";
-                            case Language.zhCN: return "需求/供应";
-                            default: return "Supply/Demand";
-                        }
-                    }
-                }
-
-                static public string UsageDirectionFilterToggleAllLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "All";
-                            case Language.zhCN: return "全部";
-                            default: return "All";
-                        }
-                    }
-                }
-
-                static public string UsageDirectionFilterToggleSupplyLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Supply";
-                            case Language.zhCN: return "供应";
-                            default: return "Supply";
-                        }
-                    }
-                }
-
-                static public string UsageDirectionFilterToggleDemandLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Demand";
-                            case Language.zhCN: return "需求";
-                            default: return "Demand";
-                        }
-                    }
-                }
-
-                static public string UsageDirectionFilterToggleStorageLabel
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Storage";
-                            case Language.zhCN: return "仓储";
-                            default: return "Storage";
-                        }
-                    }
-                }
+                static public string ToggleInPlanetLabel => "Planetary Station".Translate();
+                static public string ToggleInterstellarLabel => "Interstellar Station".Translate();
+                static public string ToggleCollectorLabel => "Collector".Translate();
+                static public string ItemFilterLabel => "Item Filter".Translate();
+                static public string UsageTypeFilterLabel => "Local/Remote".Translate();
+                static public string UsageTypeFilterToggleAllLabel => "All".Translate();
+                static public string UsageTypeFilterToggleLocalLabel => "Local".Translate();
+                static public string UsageTypeFilterToggleRemoteLabel => "Remote".Translate();
+                static public string UsageDirectionFilterLabel => "Supply/Demand".Translate();
+                static public string UsageDirectionFilterToggleAllLabel => "All".Translate();
+                static public string UsageDirectionFilterToggleSupplyLabel => "Supply".Translate();
+                static public string UsageDirectionFilterToggleDemandLabel => "Demand".Translate();
+                static public string UsageDirectionFilterToggleStorageLabel => "Storage".Translate();
             }
         }
 
         static public class Common
         {
-            static public string NoOrder
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.enUS: return "No Order";
-                        case Language.zhCN: return "无订单";
-                        default: return "No Order";
-                    }
-                }
-            }
+            static public string NoOrder => "No Order".Translate();
             static public class StationType
             {
-                static public string InPlanet
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Planetary Station";
-                            case Language.zhCN: return "行星物流站";
-                            default: return "Planetary Station";
-                        }
-                    }
-                }
+                static public string InPlanet => "Planetary Station".Translate();
 
-                static public string InPlanetCollector
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Planetary Collector";
-                            case Language.zhCN: return "行星采集站";
-                            default: return "Planetary Collector";
-                        }
-                    }
-                }
+                static public string InPlanetCollector => "Planetary Collector".Translate();
 
-                static public string Interstrllar
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Interstellar Station";
-                            case Language.zhCN: return "星际物流站";
-                            default: return "Interstellar Station";
-                        }
-                    }
-                }
+                static public string Interstellar => "Interstellar Station".Translate();
 
-                static public string InterstellarCollector
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Orbital Collector";
-                            case Language.zhCN: return "轨道采集站";
-                            default: return "Orbital Collector";
-                        }
-                    }
-                }
+                static public string InterstellarCollector => "Orbital Collector".Translate();
             }
+
+            // ...
 
             static public class StationStoreLogic
             {
-                static public string InPlanetStorage
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Local Storage";
-                            case Language.zhCN: return "本地仓储";
-                            default: return "Local Storage";
-                        }
-                    }
-                }
+                static public string InPlanetStorage => "Local Storage".Translate();
 
-                static public string InPlanetSupply
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Local Supply";
-                            case Language.zhCN: return "本地供应";
-                            default: return "Local Supply";
-                        }
-                    }
-                }
+                static public string InPlanetSupply => "Local Supply".Translate();
 
-                static public string InPlanetDemand
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Local Demand";
-                            case Language.zhCN: return "本地需求";
-                            default: return "Local Demand";
-                        }
-                    }
-                }
-                static public string InterstellarStorage
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Remote Storage";
-                            case Language.zhCN: return "星际仓储";
-                            default: return "Remote Storage";
-                        }
-                    }
-                }
+                static public string InPlanetDemand => "Local Demand".Translate();
 
-                static public string InterstellarSupply
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Remote Supply";
-                            case Language.zhCN: return "星际供应";
-                            default: return "Remote Supply";
-                        }
-                    }
-                }
+                static public string InterstellarStorage => "Remote Storage".Translate();
 
-                static public string InterstellarDemand
-                {
-                    get
-                    {
-                        switch (language)
-                        {
-                            case Language.enUS: return "Remote Demand";
-                            case Language.zhCN: return "星际需求";
-                            default: return "Remote Demand";
-                        }
-                    }
-                }
+                static public string InterstellarSupply => "Remote Supply".Translate();
+
+                static public string InterstellarDemand => "Remote Demand".Translate();
             }
+
         }
     }
 }
